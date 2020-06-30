@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-sm-6 col-12">
+        <h4 *ngIf="!itsEditable">Agregar cliente</h4>
+        <h4 *ngIf="itsEditable">Editar cliente</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col card">
+        <form [formGroup]="form" class="mt-2 mb-3">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input [ngClass]="{'is-valid': form.controls.name.valid, 'is-invalid': form.controls.name.invalid && form.controls.name.dirty}" formControlName="name" type="text" class="form-control" placeholder="Agrega el nombre" id="name">
+                        <div class="invalid-feedback" *ngIf="form.controls.name.invalid && form.controls.name.dirty">
+                            <span *ngIf="form.controls.name.errors.required">El nombre es requerido</span>
+                            <span *ngIf="form.controls.name.errors.pattern">El nombre solo puede contener letras</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="lastname">Apellidos</label>
+                        <input [ngClass]="{'is-valid': form.controls.lastname.valid, 'is-invalid': form.controls.lastname.invalid && form.controls.lastname.dirty}" formControlName="lastname" type="text" class="form-control" placeholder="Agrega los apellidos" id="lastname">
+                        <div class="invalid-feedback" *ngIf="form.controls.lastname.invalid && form.controls.lastname.dirty">
+                            <span *ngIf="form.controls.lastname.errors.required">Los apellidos son requeridos</span>
+                            <span *ngIf="form.controls.lastname.errors.pattern">Los apellidos solo pueden contener letras</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input [ngClass]="{'is-valid': form.controls.email.valid, 'is-invalid': form.controls.email.invalid && form.controls.email.dirty}" formControlName="email" type="email" class="form-control" placeholder="Agrega el correo electrónico" id="email">
+                        <div class="invalid-feedback" *ngIf="form.controls.email.invalid && form.controls.email.dirty">
+                            <span *ngIf="form.controls.email.errors.required">Correo electrónico requerido</span>
+                            <span *ngIf="form.controls.email.errors.email">Correo electrónico no valido</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input [ngClass]="{'is-valid': form.controls.phone.valid, 'is-invalid': form.controls.phone.invalid && form.controls.phone.dirty}" formControlName="phone" type="text" class="form-control" placeholder="Agrege el número de teléfono" id="phone">
+                        <div class="invalid-feedback" *ngIf="form.controls.phone.invalid && form.controls.phone.dirty">
+                            <span *ngIf="form.controls.phone.errors.required">El teléfono es requerido <br></span>
+                            <span *ngIf="form.controls.phone.errors.minlength || form.controls.phone.errors.maxlength">El número telefónico debe tener 10 dígitos <br></span>
+                            <span *ngIf="form.controls.phone.errors.pattern">El teléfono solo puede contener número <br></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="curp">CURP</label>
+                        <input [ngClass]="{'is-valid': form.controls.curp.valid, 'is-invalid': form.controls.curp.invalid && form.controls.curp.dirty}" formControlName="curp" type="text" class="form-control" placeholder="Agrega la CURP" id="curp">
+                        <div class="invalid-feedback" *ngIf="form.controls.curp.invalid && form.controls.curp.dirty">
+                            <span *ngIf="form.controls.curp.errors.required">La CURP es requerida</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <label for="birthday">Año de nacimiento</label>
+                    <input [ngClass]="{'is-valid': form.controls.birthday.valid, 'is-invalid': form.controls.birthday.invalid && form.controls.birthday.dirty}" formControlName="birthday" type="date" class="form-control" placeholder="Agrega tu fecha de nacimiento" id="birthday">
+                    <div class="invalid-feedback" *ngIf="form.controls.birthday.invalid && form.controls.birthday.dirty">
+                        <span *ngIf="form.controls.birthday.errors.required">La fecha de nacimiento es requerida</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="img">Avatar</label>
+                        <ng-container *ngIf="!itsEditable; then thenTemplate; else elseTemplate"></ng-container>
+                        <ng-template #thenTemplate>
+                            <input (change)="uploadImage($event)" [ngClass]="{'is-valid': form.controls.img.valid, 'is-invalid': form.controls.img.invalid && form.controls.img.dirty}" formControlName="img" type="file" class="form-control-file" id="img">
+                            <div class="invalid-feedback" *ngIf="form.controls.img.invalid && form.controls.img.dirty">
+                                <span *ngIf="form.controls.img.errors.required">La imagen es requerida</span>
+                            </div>
+                        </ng-template>
+                        <ng-template #elseTemplate>
+                            <input (change)="uploadImage($event)" formControlName="img" type="file" class="form-control-file" id="img">
+                        </ng-template>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <progressbar max="100" [value]="percentage" type="success"><i>{{percentage}} / 100</i></progressbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <br>
+                    <button *ngIf="itsEditable" class="btn btn-warning" [disabled]="form.invalid" (click)="editCostumer()">Editar</button>
+                    <button *ngIf="!itsEditable" class="btn btn-primary" [disabled]="form.invalid" type="submit" (click)="addCostumer()">Agregar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha de inicio</th>
+                    <th scope="col">Fecha final</th>
+                    <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let suscription of suscriptions">
+                    <th>{{ suscription.costumerData.name + ' ' + suscription.costumerData.lastname}}</th>
+                    <td>{{ suscription.date | date}}</td>
+                    <td>{{ suscription.finalDate | date}}</td>
+                    <td><img [src]="suscription.costumerData.img" class="avatar"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

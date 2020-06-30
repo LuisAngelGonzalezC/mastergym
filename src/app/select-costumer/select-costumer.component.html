@@ -1,0 +1,21 @@
+<div class="costumers">
+    <div class="form-group" *ngIf="!name">
+        <label for="search">Cliente</label>
+        <input (input)="searchCostumers($event.target.value)" type="text" class="form-control" placeholder="Busque un cliente" id="search" autofocus>
+    </div>
+    <div class="form-group" *ngIf="name">
+        <div class="input-group">
+            <input [(ngModel)]="name" type="text" class="form-control" placeholder="Cliente" id="costumer" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="deleteCostumer()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div class="list-group" *ngIf="!name">
+        <div *ngFor="let costumer of costumers">
+            <a (click)="selectCostumer(costumer)" *ngIf="costumer.visible" class="list-group-item list-group-item-action">
+                {{costumer.name + ' ' + costumer.lastname}}
+            </a>
+        </div>
+    </div>
+</div>

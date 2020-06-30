@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mastergym-bb549": {
+      "hosting": {
+        "mastergym": [
+          "mastergym-bb549"
+        ]
+      }
+    }
+  }
+}

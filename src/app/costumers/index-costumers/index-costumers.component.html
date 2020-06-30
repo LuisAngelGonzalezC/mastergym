@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-sm-4 col-12">
+        <h4>Listado de clientes</h4>
+    </div>
+    <!-- <div class="col-sm-8 col-12">
+        <form action="">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar un cliente">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div> -->
+</div>
+<div class="row">
+    <div class="col-12 col-sm-4 col-md-3 mb-3" *ngFor="let costumer of costumers">
+        <img [src]="costumer.img" class="card-img-top" class="img-costumer">
+        <div class="card card-costumer">
+            <div class="card-body card-body-costumer">
+                <h5 class="card-title">{{ costumer.fullname }}</h5>
+                    <div class="col-md-8 col-sm-10 col-12" class="edit-button">
+                        <a [routerLink]="['/costumers/edit/', costumer.id]" class="card-link">Editar</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

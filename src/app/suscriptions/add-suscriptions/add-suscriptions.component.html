@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-6 col-12">
+        <div class="card p-3">
+            <app-select-costumer
+        [name]="selectedCostumer.name"
+        (canceledCostumer)="deleteCostumer()"
+        (selectedCostumer)="assignCostumer($event)"></app-select-costumer>
+        
+        <div class="form-group">
+            <label for="price">Precio</label>
+            <select id="price" class="form-control" [(ngModel)]="idPrice" (change)="selectPrice($event.target.value)" required>
+                <option selected disabled class="option-disabled" value="null">Selecciona uno de la lista</option>
+                <option *ngFor="let price of prices" [value]="price.id">{{ price.name }}</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="date">Fecha de inicio</label>
+            <input type="text" id="date" class="form-control" [value]="suscription.date | date" disabled>
+        </div>
+        <div class="form-group">
+            <label for="finalDate">Fecha final</label>
+            <input type="text" id="finalDate" class="form-control" [value]="suscription.finalDate | date" disabled>
+        </div>
+        <div class="form-group">
+            <label for="subtotal">Subtotal</label>
+            <input type="text" id="subtotal" class="form-control" [value]="suscription.subtotal | currency" disabled>
+        </div>
+        <div class="form-group">
+            <label for="iva">IVA (16%)</label>
+            <input type="text" id="iva" class="form-control" [value]="suscription.iva | currency" disabled>
+        </div>
+        <div class="form-group">
+            <label for="total">Total</label>
+            <input type="text" id="total" class="form-control" [value]="suscription.total | currency" disabled>
+        </div>
+        <button class="btn btn-primary" (click)="save()">Guardar</button>
+        </div>
+    </div>
+    <div class="col-sm-3 col-12">
+        <div class="card" *ngIf="selectedCostumer.img">
+            <img src="{{selectedCostumer.img}}" alt="" class="card-img-top">
+            <div class="card-body">
+                <h6 class="card-title">Nombre: {{ selectedCostumer.name + ' ' + selectedCostumer.lastname }}</h6>
+            </div>
+        </div>
+    </div>
+</div>
